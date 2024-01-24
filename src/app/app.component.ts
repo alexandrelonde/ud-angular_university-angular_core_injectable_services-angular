@@ -13,15 +13,15 @@ import { CoursesService } from './services/courses.service';
 })
 export class AppComponent implements OnInit {
 
-  // Quando eu ternho dólar(cifrão) no final de uma variável, ela é um observable
-  courses$: Observable<Course[]>;
+
+  courses = COURSES;
 
   constructor(private courseService: CoursesService) {
 
   }
 
   ngOnInit() {
-    this.courses$ = this.courseService.loadCourses();
+    
   }
 
   save(course: Course) {

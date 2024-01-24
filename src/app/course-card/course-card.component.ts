@@ -38,7 +38,10 @@ export class CourseCardComponent implements OnInit {
 
     ngOnInit() {
 
-      console.log("courseService course card", this.courseService);
+    }
+
+    onTitleChanged(newTitle: string) {
+      this.course.description = newTitle;
 
     }
 
