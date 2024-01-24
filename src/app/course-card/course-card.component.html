@@ -10,6 +10,7 @@
   <div class="course-description">
 
     Edit Title: <input #courseTitle [value]="course.description" (keyup)="onTitleChanged(courseTitle.value)">
+    <!-- No evento keyup é enviado como parametro o valor do courseTitle que está identificado com # -->
 
   </div>
 

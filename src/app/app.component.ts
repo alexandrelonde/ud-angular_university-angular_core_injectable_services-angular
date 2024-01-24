@@ -13,7 +13,7 @@ import { CoursesService } from './services/courses.service';
 })
 export class AppComponent implements OnInit {
 
-
+  // Dessa forma estamos puchando os dados do arquivo db-data.ts
   courses = COURSES;
 
   constructor(private courseService: CoursesService) {
@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
   save(course: Course) {

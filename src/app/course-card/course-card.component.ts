@@ -40,6 +40,7 @@ export class CourseCardComponent implements OnInit {
 
     }
 
+    // Passando o novo valor para a descrição do curso -> course.description
     onTitleChanged(newTitle: string) {
       this.course.description = newTitle;
 
