@@ -25,7 +25,17 @@ export class AppComponent implements OnInit {
   }
 
   onEditCourse() {
-    this.courses[0].description = 'New Value!';
+    const course = this.courses[0];
+
+    // spread operator nesse caso está sendo utilizado para criar uma copia de um array de objetos de curso
+    const newCourse: any = {...course};
+
+    newCourse.description = 'New Value!';
+
+    // Criamos uma cópia, alteramos o valor da cópia, e depois passamos a cópia para o valor do array
+    // Com isso o modo OnPush funciona corretamente, isso porque criamos um novo objeto
+    this.courses[0] = newCourse;
+
   }
 
   save(course: Course) {
