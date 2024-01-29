@@ -21,6 +21,9 @@ export class AppComponent implements OnInit {
   // Isso é importante porque o método onpush "olhará" para as variáveis @input e para os observables
   courses$: Observable<Course[]>;
 
+  // Dessa forma estamos usando o método .subscribe
+  // courses: Course[];
+
   constructor(private courseService: CoursesService) {
 
   }
@@ -48,3 +51,10 @@ export class AppComponent implements OnInit {
 
 // IMPORTANTE
 // Quando de trata de observables, tanto o método padrão, quanto método onpush funcionam tranquilamente.
+// Usando observables e OnPush é importante usar async pipe para dar o subscribe no observable.
+/*
+  Relembrando...
+  Maneiras de ativar o método OnPush
+    @Input (caso não altere dados, criamos uma cópia do objeto)
+    Observables (utilizando | async para se inscrever no observable)
+*/
