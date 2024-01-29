@@ -1,11 +1,13 @@
 import {
     AfterContentInit,
     AfterViewInit,
+    Attribute,
     ChangeDetectionStrategy,
     Component,
     ContentChildren,
     ElementRef,
     EventEmitter,
+    INJECTOR,
     Input,
     OnInit,
     Output,
@@ -27,6 +29,7 @@ export class CourseCardComponent implements OnInit {
     @Input()
     course: Course;
 
+
     @Input()
     cardIndex: number;
 
@@ -34,7 +37,8 @@ export class CourseCardComponent implements OnInit {
     courseEmitter = new EventEmitter<Course>();
 
 
-    constructor(private courseService: CoursesService) {
+    constructor(private courseService: CoursesService, @Attribute('type') private type: string) {
+      console.log(type);
 
     }
 
@@ -66,4 +70,9 @@ export class CourseCardComponent implements OnInit {
 
   Em alguns casos .OnPush e o modo padrão podem funcionar da mesma maneira
 
+*/
+
+/*
+  @Attribute: posso pensar no Attribute como um Input de valor fixo, funcionando em
+  uma dinâmica semelhante ao Input, mas passado dentro de um construtor.
 */
