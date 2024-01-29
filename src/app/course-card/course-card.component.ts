@@ -29,6 +29,8 @@ export class CourseCardComponent implements OnInit {
     @Input()
     course: Course;
 
+    @Input() type;
+
 
     @Input()
     cardIndex: number;
@@ -37,12 +39,14 @@ export class CourseCardComponent implements OnInit {
     courseEmitter = new EventEmitter<Course>();
 
 
-    constructor(private courseService: CoursesService, @Attribute('type') private type: string) {
-      console.log(type);
+    constructor(private courseService: CoursesService, /* @Attribute('type') private type: string */) {
+
 
     }
 
     ngOnInit() {
+      console.log(this.type);
+      // se estou chamando dentro de um método ou dentro do ngOnInit (lifecycle hook) eu tenho que usar this.
 
     }
 
@@ -76,3 +80,5 @@ export class CourseCardComponent implements OnInit {
   @Attribute: posso pensar no Attribute como um Input de valor fixo, funcionando em
   uma dinâmica semelhante ao Input, mas passado dentro de um construtor.
 */
+
+// Caso eu não vá usar o @Attribute, eu uso o decorator @Input e coloco a lógica em ngOnInit
