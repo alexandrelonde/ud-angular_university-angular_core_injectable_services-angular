@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {COURSES} from '../db-data';
 import {Course} from './model/course';
 import {CourseCardComponent} from './course-card/course-card.component';
@@ -12,7 +12,9 @@ import { CoursesService } from './services/courses.service';
   styleUrls: ['./app.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, DoCheck {
+
+  loaded = false;
 
   // Dessa forma estamos puchando os dados do arquivo db-data.ts
   // courses = COURSES;
@@ -29,11 +31,25 @@ export class AppComponent implements OnInit {
 
   }
 
+  ngDoCheck() {
+
+    console.log("ngDoCheck");
+    if(this.loaded) {
+      // Ao colocar a lógica do markForCheck no if, vou verificar apenas uma vez quando os dados vierem do backend
+      // sinaliza que tem que ser verificado se houve alguma alteração, este component tem que ser verifica se houve mudanças
+      this.cd.markForCheck();
+      console.log("called cd.markForCheck()");
+      this.loaded = undefined;
+    }
+
+
+
+  }
+
   ngOnInit() {
     this.courseService.loadCourses().subscribe(courses => {
       this.courses = courses;
-      // sinaliza que tem que ser verificado se houve alguma alteração, este component tem que ser verifica se houve mudanças
-      this.cd.markForCheck();
+      this.loaded = true;
     });
 
   }
