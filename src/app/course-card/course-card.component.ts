@@ -3,6 +3,7 @@ import {
     AfterViewInit,
     Attribute,
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     ContentChildren,
     ElementRef,
@@ -39,7 +40,11 @@ export class CourseCardComponent implements OnInit {
     courseEmitter = new EventEmitter<Course>();
 
 
-    constructor(private courseService: CoursesService, /* @Attribute('type') private type: string */) {
+    /*
+      É importante ressaltar que como estamos detectando alterações manualmente, cada component tem seu ChangeDetectorRef.
+      O que foi colocado dentro desse component course-card é diferente do que está no app.component.
+    */
+    constructor(private courseService: CoursesService, /* @Attribute('type') private type: string */ private cd: ChangeDetectorRef) {
 
 
     }

@@ -12,7 +12,7 @@
 
   </div>
 
-  <div class="courses" *ngIf="(courses$ | async) as courses">
+  <div class="courses">
 
     <course-card *ngFor="let course of courses" (courseChanged)="save($event)" type="beginner" [course]="course">
 

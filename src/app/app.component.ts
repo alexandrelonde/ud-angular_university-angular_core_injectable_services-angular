@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {COURSES} from '../db-data';
 import {Course} from './model/course';
 import {CourseCardComponent} from './course-card/course-card.component';
@@ -19,17 +19,22 @@ export class AppComponent implements OnInit {
 
   // Dessa forma estamos buscando os dados de um observable
   // Isso é importante porque o método onpush "olhará" para as variáveis @input e para os observables
-  courses$: Observable<Course[]>;
+  // courses$: Observable<Course[]>;
 
   // Dessa forma estamos usando o método .subscribe
-  // courses: Course[];
+  courses: Course[];
 
-  constructor(private courseService: CoursesService) {
+  // Passando o ChangeDetectorRef por parâmetro no construtor
+  constructor(private courseService: CoursesService, private cd: ChangeDetectorRef) {
 
   }
 
   ngOnInit() {
-    this.courses$ = this.courseService.loadCourses();
+    this.courseService.loadCourses().subscribe(courses => {
+      this.courses = courses;
+      // sinaliza que tem que ser verificado se houve alguma alteração, este component tem que ser verifica se houve mudanças
+      this.cd.markForCheck();
+    });
 
   }
 
