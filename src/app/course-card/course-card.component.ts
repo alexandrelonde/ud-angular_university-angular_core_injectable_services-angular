@@ -1,12 +1,14 @@
 import {
   AfterContentChecked,
     AfterContentInit,
+    AfterViewChecked,
     AfterViewInit,
     Attribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     ContentChildren,
+    DoCheck,
     ElementRef,
     EventEmitter,
     INJECTOR,
@@ -29,7 +31,7 @@ import { CoursesService } from '../services/courses.service';
     styleUrls: ['./course-card.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CourseCardComponent implements OnInit, OnDestroy, OnChanges, AfterContentChecked {
+export class CourseCardComponent implements OnInit, OnDestroy, OnChanges, AfterContentChecked, AfterViewChecked, AfterContentInit, AfterViewInit, DoCheck {
 
     /*
       Vale lembrar que por mais que seja uma observação simples, que todos esses métodos, lifecycle
@@ -84,18 +86,48 @@ export class CourseCardComponent implements OnInit, OnDestroy, OnChanges, AfterC
 
     }
 
+
+    ngDoCheck() {
+      console.log("ngDoCheck");
+    }
+
+
+    ngAfterContentInit() {
+      console.log("ngAfterContentInit");
+
+    }
+
+
+    ngAfterViewInit() {
+      console.log("ngAfterViewInit");
+
+    }
+
+
     ngAfterContentChecked() {
       console.log("ngAfterContentChecked");
       this.course.description = 'ngAfterContentChecked';
       this.course.category = 'ADVANCED';
       // this.course.iconUrl = ''; -> não pode ser alterado por que é um conteúdo dentro de course-card o que gera um loop
 
-      
       /*
         Esse método é chamado a cada vez que o Angular detecta uma mudança, seja por uma ação executada
         no programa, seja recebendo dados do backend.
         Esse método é interessante para mudar os dados mostrado no template, e não fazer calculos massivos nessa parte.
         Poderiamos fazer aqui tranquilamente a mudança do campo description do curso.
+      */
+    }
+
+    ngAfterViewChecked() {
+      console.log("ngAfterViewChecked");
+
+      /*
+        Após verificar o conteúdo do componente, e verificar se há alguma mudança, será verificado
+        o template. É visto que após chamar o método AfterContentCheck, é chamado o método
+        AfterViewCheck.
+
+        Um caso interessante para se aplicar nesse método é quanod temos vários cursos em uma página e
+        vamos aplicar uma lógica de scroll.
       */
     }
 
