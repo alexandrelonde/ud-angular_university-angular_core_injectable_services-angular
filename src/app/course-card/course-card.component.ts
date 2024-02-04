@@ -10,10 +10,12 @@ import {
     EventEmitter,
     INJECTOR,
     Input,
+    OnChanges,
     OnDestroy,
     OnInit,
     Output,
     QueryList,
+    SimpleChanges,
     ViewEncapsulation
 } from '@angular/core';
 import {Course} from '../model/course';
@@ -26,7 +28,7 @@ import { CoursesService } from '../services/courses.service';
     styleUrls: ['./course-card.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CourseCardComponent implements OnInit, OnDestroy {
+export class CourseCardComponent implements OnInit, OnDestroy, OnChanges {
 
     @Input()
     course: Course;
@@ -49,6 +51,20 @@ export class CourseCardComponent implements OnInit, OnDestroy {
       console.log('constructor', this.course);
       // Para criar o componente, é preciso primeiro chamar o construtor e as suas dependências
 
+
+    }
+
+    ngOnChanges(changes) {
+      console.log("ngOnChanges", changes);
+      // Esse método só será chamado por uma trigger em que hava uma mudança de dado ou criação de um objeto
+      // Se apenas um campo do objeto for mudado, nada irá acontecer
+      // Isso é solucionado, criando uma cópia do objeto com o campo (dado) alterado, e então é passado um objeto modificado
+
+      /*
+        Esse lifecycle hook é chamado a primeira vez que o Angular se inicia, onde ele é chamado antes
+        do ngOnInit e depois posteriormente a cada mudança implementada. E lembrando que a trigger desse método
+        é disparada quando um objeto é mudado e não apenas uma propriedade desse objeto.
+      */
 
     }
 

@@ -37,7 +37,20 @@ export class AppComponent implements OnInit {
   }
 
   onEditCourse() {
-    this.courses = [undefined];
+    const course = this.courses[0];
+    const newCourse = {
+      ...course,
+      description: 'ngOnChanges'
+    };
+
+    /*
+      newCourse é um novo objeto criado onde passamos os dados do objeto antigo e passamos
+      o novo valor do campo "description". Para passar os outros valores utilizamos o
+      spread operator representado por "...", com ele os campos correspondentes já são preenchido
+      pelo valor inicial, restando apenas o campo description para alterarmos posteriormente.
+    */
+
+    this.courses[0] = newCourse;
     // Ao clicar no botão, estou limpando o array de cursos
     // Isso é a trigger para a destruição do componente course-card component
     // Com isso o ngIf do template terá o valor false e o componente será destruido
