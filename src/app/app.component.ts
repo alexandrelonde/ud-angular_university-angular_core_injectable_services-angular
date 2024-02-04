@@ -37,6 +37,10 @@ export class AppComponent implements OnInit {
   }
 
   onEditCourse() {
+    this.courses = [undefined];
+    // Ao clicar no botão, estou limpando o array de cursos
+    // Isso é a trigger para a destruição do componente course-card component
+    // Com isso o ngIf do template terá o valor false e o componente será destruido
 
   }
 

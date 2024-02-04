@@ -10,6 +10,7 @@ import {
     EventEmitter,
     INJECTOR,
     Input,
+    OnDestroy,
     OnInit,
     Output,
     QueryList,
@@ -25,7 +26,7 @@ import { CoursesService } from '../services/courses.service';
     styleUrls: ['./course-card.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CourseCardComponent implements OnInit {
+export class CourseCardComponent implements OnInit, OnDestroy {
 
     @Input()
     course: Course;
@@ -44,15 +45,27 @@ export class CourseCardComponent implements OnInit {
       É importante ressaltar que como estamos detectando alterações manualmente, cada component tem seu ChangeDetectorRef.
       O que foi colocado dentro desse component course-card é diferente do que está no app.component.
     */
-    constructor(private courseService: CoursesService, /* @Attribute('type') private type: string */ private cd: ChangeDetectorRef) {
+    constructor(private courseService: CoursesService, /* @Attribute('type') private type: string */) {
+      console.log('constructor', this.course);
+      // Para criar o componente, é preciso primeiro chamar o construtor e as suas dependências
 
 
     }
 
     ngOnInit() {
-      console.log(this.type);
+      console.log("ngOnInit", this.course);
+      // O método ntOnInit é chamado uma única vez, mesmo que há uma nova interação com o Angular enquanto o programa está rodando
       // se estou chamando dentro de um método ou dentro do ngOnInit (lifecycle hook) eu tenho que usar this.
       // IMPORTANTÍSSIMO!!! Eu não posso chamar um lifecycle hook dentro de um outro - isso seria matar sua funcionalidade
+      // É aqui que as variáveis são definidas e não no Construtor
+
+    }
+
+    ngOnDestroy() {
+      console.log("ngOnDestroy");
+      // Lugar para dar o unsubscrite para as conexẽos abertas (observables)
+      // Ao usar o .subscribe ao inves do |async, usando o ngOnDestroy para fazer o unsubscribe
+      // Lembrando que para esse método entrar em ação eu tenho que criar uma trigger para ele
 
     }
 
