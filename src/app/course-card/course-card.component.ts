@@ -1,4 +1,5 @@
 import {
+  AfterContentChecked,
     AfterContentInit,
     AfterViewInit,
     Attribute,
@@ -28,7 +29,13 @@ import { CoursesService } from '../services/courses.service';
     styleUrls: ['./course-card.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CourseCardComponent implements OnInit, OnDestroy, OnChanges {
+export class CourseCardComponent implements OnInit, OnDestroy, OnChanges, AfterContentChecked {
+
+    /*
+      Vale lembrar que por mais que seja uma observação simples, que todos esses métodos, lifecycle
+      hooks estão sendo implmementados no componente CouseCardComponent, onde é nesse componente que
+      estamos chamando os métodos.
+    */
 
     @Input()
     course: Course;
@@ -75,6 +82,21 @@ export class CourseCardComponent implements OnInit, OnDestroy, OnChanges {
       // IMPORTANTÍSSIMO!!! Eu não posso chamar um lifecycle hook dentro de um outro - isso seria matar sua funcionalidade
       // É aqui que as variáveis são definidas e não no Construtor
 
+    }
+
+    ngAfterContentChecked() {
+      console.log("ngAfterContentChecked");
+      this.course.description = 'ngAfterContentChecked';
+      this.course.category = 'ADVANCED';
+      // this.course.iconUrl = ''; -> não pode ser alterado por que é um conteúdo dentro de course-card o que gera um loop
+
+      
+      /*
+        Esse método é chamado a cada vez que o Angular detecta uma mudança, seja por uma ação executada
+        no programa, seja recebendo dados do backend.
+        Esse método é interessante para mudar os dados mostrado no template, e não fazer calculos massivos nessa parte.
+        Poderiamos fazer aqui tranquilamente a mudança do campo description do curso.
+      */
     }
 
     ngOnDestroy() {
