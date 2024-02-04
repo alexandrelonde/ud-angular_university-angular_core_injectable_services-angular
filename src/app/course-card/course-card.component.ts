@@ -52,6 +52,7 @@ export class CourseCardComponent implements OnInit {
     ngOnInit() {
       console.log(this.type);
       // se estou chamando dentro de um método ou dentro do ngOnInit (lifecycle hook) eu tenho que usar this.
+      // IMPORTANTÍSSIMO!!! Eu não posso chamar um lifecycle hook dentro de um outro - isso seria matar sua funcionalidade
 
     }
 
@@ -87,3 +88,11 @@ export class CourseCardComponent implements OnInit {
 */
 
 // Caso eu não vá usar o @Attribute, eu uso o decorator @Input e coloco a lógica em ngOnInit
+
+
+/*
+  Vale lembrar que os lifecycle hooks são métodos que estão dentro da classe
+  e são chamados automaticamente pelo framework em diferentes momentos do ciclo de
+  vida de um componente, permitindo que a lógica específica seja executada em cada
+  momento específico.
+*/
